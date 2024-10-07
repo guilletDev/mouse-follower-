@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-function App() {
+const FollowMouse = ()=>{
   //Estado para saber si está activado o no.
   const [enabled, setEnabled] = useState(false)
   //Seteamos la posicion
-  const [position, setPosition] = useState({x: 0, y: 0})// Es buena practica poner lo valores iniciales.
+  const [position, setPosition] = useState({x: 350, y: 200})// Es buena practica poner lo valores iniciales.
 
   useEffect(()=>{
     console.log(`effect ${enabled}`)
@@ -22,17 +22,19 @@ function App() {
     }
 
     // Cleanup del evento cuando el efecto se desmonte o cambie "enabled"
-    return () => {
+    // Cuando el componente se desmonta
+    // Cuando cambian las dependencias antes de ejecutar
+    return () => { //Cleanup mehtod
       window.removeEventListener('pointermove', handleMove)
     }
     
   },[enabled])
 
-  return (
-    <main>
-        <div style={{
+  return(
+    <>
+       <div style={{
         position: 'absolute',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: '#ffde59',
         border: '1px solid #fff',
         borderRadius: '50%',
         opacity: 0.8,
@@ -45,6 +47,16 @@ function App() {
         }}
       />
       <button onClick={()=>{setEnabled(!enabled) }}   >{enabled ? 'Desactivar' : 'Activar'} el puntero</button>
+    </>
+  )
+}
+
+function App() {
+  
+
+  return (
+    <main>
+        < FollowMouse />
     </main>
       
     
